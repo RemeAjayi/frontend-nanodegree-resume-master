@@ -1,0 +1,93 @@
+//for every element that will be created when the user clicks a button change the ID to CLASS
+/*var i;
+function setIDCounter()
+{
+   i++;
+   return i;
+}*/
+var skillInput = '<label>skill</label><input type="text" name="skill" class="skill">';
+$("#showSkill").click(function()
+{
+$(".hideMe-0").append(skillInput);
+
+});//create skill section
+
+$("#showWork").click(function()
+{
+ /*setIDCounter();
+ var workInput = '<div class="work"><label>Title</label><input type="text" name="wk_title" id="wk_title'.i.'" ><label>Role</label><input type="text" name="wk_role" class="wk_role"><label>Place</label><input type="text" name="wk_place" class="wk_place"><label>From</label><input type="text" name="wkStartDate" class="WkStartDate"><label>To</label><input type="text" name="wkEndDate" class="wkEndDate"><label>Details</label><textarea  name="workDetails" class="workDetails"></textarea></div>';
+ $(".hideMe-1").append(workInput);
+ alert($("input").attr("id"));*/
+}
+});//create work section
+
+var schoolInput  = '<label>Name</label><input type="text" name="sch_name" class="sch_name"><label>Major</label><input type="text" name="sch_major" id="sch_major"><label>Degree</label><input type="text" name="sch_degree" class="sch_degree"><label>From</label><input type="text" name="schStartDate" class="schStartDate"><label>To</label><input type="text" name="schEndDate" class="schEndDate"><label>Place</label><input type="text" name="sch_place" class="sch_place">';
+$("#showSchool").click(function()
+{
+$(".hideMe-2").append(schoolInput);
+});//create schools section
+
+var onlineCourseInput = '<label> Course Title</label><input type="text" name="course_title" class="course_title"><label>School</label><input type="text" name="course_sch" class="course_sch"><label>Date</label><input type="text" name="course_date" class="course_date"><label>URL</label><input type="text" name="course_url" class="course_url">';
+$("#showOnlineCourse").click(function()
+{
+$(".hideMe-3").append(onlineCourseInput);
+});//create course section
+
+var projectInput = '<label>Title</label><input type="text" name="project_title" class="project_title"><label>Date</label><input type="text" name="project_date" class="project_date"><label>Media</label><button>Upload</button><!-- when img is created it should be given class dynamically --><label>Details</label><textarea name="project_details" class="project_details"></textarea>';
+$("#showProject").click(function()
+{
+$(".hideMe-4").append(projectInput);
+});//create course section
+
+var biodata = {};
+var workdata = []; 
+
+function setBio() {
+   biodata.firstName = $("#fname").val();
+   biodata.lastName = $("#lname").val();
+   biodata.role = $("#role").val();
+   biodata.headline = $("#headline").val();
+   biodata.image = $("#bio_image").val();
+   biodata.skill = [];
+
+   var y = $(".hideMe-0").find(".skill");
+   for (var i = 0; i<y.length; i++)
+   {
+	
+	biodata.skill.push(y[i].value);
+   }
+
+   return biodata;
+}
+//sets work
+/*function setWork(){
+	//or soft work :)
+
+   var y = $(".hideMe-1").find(".work");
+   alert(y.length);
+   for (var i = 0; i<y.length; i++)
+   {
+     // alert();
+   console.log(i);
+	workdata[i]= new Object();
+	workdata[i].employer = $(".wk_title").val();
+   alert(workdata[i].employer);
+	workdata[i].title = $(".wk_role").val();
+	workdata[i].location = $(".wk_place").val();
+	var dates = $(".wkStartDate").val() + "-" + $(".wkEndDate").val();
+	workdata[i].datesWorked = dates;
+	workdata[i].description = $(".workDetails").val();	
+   }
+   return workdata;
+}
+//workdata is undefined in resumeBuilder.js and properties don't change in loop
+*/
+
+$('#upload').click(function(){
+
+   setBio();
+   localStorage.setItem("userBio", JSON.stringify(biodata));
+   setWork();
+   localStorage.setItem("userWorkData", JSON.stringify(workdata));
+    //replace userBio with userData if it'll contain all the values
+});

@@ -2,99 +2,54 @@
 This is empty on purpose! Your code to build the resume will go here.
  */
 
-var work =
-{
-	"jobs":
-    [
-     {
-     	
-     	"employer" : "Integrated Data Services Limited",
-     	"title" : "Hardware Intern",
-        "location" : "Benin City, Edo State",
-        "datesWorked" : "May 2016 - Jun 2016",
-        "description" : "Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections."
-     },
-     {
-     	"employer" : "Nigerian Petroleum Development Company",
-     	"title" : "Hardware Intern",
-        "location" : "Benin City, Edo State",
-        "datesWorked" : "Jan 2017 - Apr 2017",
-        "description" : "Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections.Duties included mail configuration, cable crimping and troubleshooting of LAN connections"
-     },
-     {
-     	"employer" : "Microscale Embedded",
-     	"title" : "Embedded Systems Engineer",
-        "location" : "Kado Estate, Abuja",
-        "datesWorked" : "May 2017 - Jun 2017",
-        "description" : "Duties included design and construction of embedded systems, as well as embedded system programming.Duties included design and construction of embedded systems, as well as embedded system programming.Duties included design and construction of embedded systems, as well as embedded system programming.Duties included design and construction of embedded systems, as well as embedded system programming"
-     }
-	]
-};
+var userBio = JSON.parse(localStorage.getItem("userBio"));
+var userWorkData = JSON.parse(localStorage.getItem("userWorkData"));
+var userSchoolData = JSON.parse(localStorage.getItem("userSchoolData"));
+var userCourseData = JSON.parse(localStorage.getItem("userCourseData"));
+var userProjectData = JSON.parse(localStorage.getItem("userProjectData"));
 
-var projects =
+var work = { "jobs":[]};
+for (var i=0; i<userWorkData.length; i++)
 {
- sampleProjects: 
- [
-  {
-  	"title" : "Temperature Controlled Arduino Fan",
-  	"dates" : "Nov 2016",
-  	"description" : "DC Fan operates with temperature. At high temperatures, fan speedincreases and at low temperatures fan speed reduces, the speed is displayed on a liquid crystal display",
-  	images : ["images/drum.png"]
-  },
-  {
-    "title" : "Website for Zantahouse",
-  	"dates" : "Jan 2016",
-  	"description" : "Website for designer wedding startup, Zantahouse. Bridal photography, makeup, hair stylists and wedding planners.",
-  	images : ["images/zanta.png","images/shop.png"]
-  }
- ]
-};
+	//because the first value is null
+	work.jobs.push(userWorkData[i]);
+}
+
+var education = { "schools": [], "onlineCourses": []};
+for (var i=0; i<userSchoolData.length; i++)
+{
+  //because the first value is null
+  education.schools.push(userSchoolData[i]);
+}
+for (var i = 0; i<userCourseData.length; i++)
+{
+education.onlineCourses.push(userCourseData[i]);
+}
+
+
+var projects = { sampleProjects: []};
+for (var i = 0; i<userProjectData.length; i++)
+{
+projects.sampleProjects.push(userProjectData[i]);
+}
 
 var bio = {
-	"name" : "Olohireme Ajayi",
-	"role" : "Web Developer",
+	"name" : userBio.firstName + " " + userBio.lastName,
+	"role" : userBio.role,
 	"contacts" : 
 	{
-	 "mobileNo" : "+2347036832227",
-	 "email": "remeajayi@gmail.com",
-     "twitter": "@olohireme_ajayi",
-     "github": "RemeAjayi",
-     "location": "Benin City, Edo State"
+	 "mobileNo" : userBio.mobile,
+	 "email": userBio.email,
+     "twitter": userBio.twitter,
+     "github": userBio.github,
+     "location": userBio.place
      },
-	"pictureURL" : "images/biopic.jpg",
-	"welcomeMessage" : "Hello Mate!",
-	"skills" : ["Crimping Cables", "PHP", "HTML", "Javascript"]
+	"pictureURL" : userBio.bio_image,
+	"welcomeMessage" : userBio.headline,
+	"skills" : userBio.skill
 };
-
-var education = {
-   	"schools":[
-   	{
-      "name" : "Covenant University",
-      "location" : "Ota, Ogun State",
-      "major" : "Computer Engineering",
-      "degree": "B.Eng",
-      "degreeDates" : 2018,
-      "url" : "www.covenantuniversity.edu.ng"
-     
-},
-{
-      "name" : "Stanford University",
-      "location" : "Palo Alto, California",
-      "major" : "Computer Engineering",
-      "degree": "M.Eng",
-      "degreeDates" : 2020,
-      "url" : "www.stanford.edu"
-  }
-   	],
-   	"onlineCourses" : 
-   	[
-   	{ "title": "Javascript Basics",
-   	  "school": "Udacity",
-   	  "dates" : "Jan 2017",
-   	  "url" : "https://classroom.udacity.com/courses/ud804/lessons/1930528550/concepts/19350585610923"
-   	}
-   	]
-   };
+   	
+   
  
 function displayNav()
 {
@@ -130,16 +85,14 @@ $("#header").append(HTMLwelcomeMsg);
    {
 	$("#header").append(HTMLskillsStart);
 
-      var skill1 = skills[0];
-      var HTMLskills1 = HTMLskills.replace("%data%", skill1);
-	  $("#skills").append(HTMLskills1);
-      var skill2 = skills[1];
-	  var HTMLskills2 = HTMLskills.replace("%data%", skill2);
-	  $("#skills").append(HTMLskills2);
-	  var skill3 = skills[2];
-	  var HTMLskills3 = HTMLskills.replace("%data%", skill3);
-	  $("#skills").append(HTMLskills3);
-	  
+      for (skill in skills)
+      { 
+       
+      	HTMLskills = HTMLskills.replace("%data%", skills[skill]);
+      	$("#skills").append(HTMLskills);
+      	HTMLskills = HTMLskills.replace(skills[skill],"%data%" );
+
+      }
    }
   }
 // calls bio display method
@@ -154,10 +107,10 @@ displayNav();
   	$("#workExperience").append(HTMLworkStart);
 
     var employer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-    var title = HTMLworkTitle.replace("%data%", work.jobs[job].title);
+    var title = HTMLworkTitle.replace("%data%", work.jobs[job].role);
     var formattedDate = HTMLworkDates.replace("%data%", work.jobs[job].datesWorked);
-    var  formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
-    var formattedDesc = HTMLworkDescription.replace("%data%", work.jobs[job].description);
+    var  formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].place);
+    var formattedDesc = HTMLworkDescription.replace("%data%", work.jobs[job].details);
 
     var w = employer + title + formattedDate + formattedLocation + formattedDesc;
     $(".work-entry:last").append(w);
@@ -177,10 +130,11 @@ name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1);
 var internationalizeName = name.join(" ");
 return internationalizeName;
 }
-
+/**
   $('button').click(function(inName) {
-   
+        
   });
+**/
   // display method of education object
 education.display = function()
 {
@@ -188,13 +142,13 @@ education.display = function()
  for(school in education.schools)
   {
   	$("#education").append(HTMLschoolStart);
-    HTMLschoolDates = HTMLschoolDates.replace("%data%", education.schools[school].degreeDates);
+    HTMLschoolDates = HTMLschoolDates.replace("%data%", education.schools[school].schoolDates);
     $(".sch-date:last").append(HTMLschoolDates);
-    HTMLschoolName = HTMLschoolName.replace("%data%", education.schools[school].name);
+    HTMLschoolName = HTMLschoolName.replace("%data%", education.schools[school].fullname);
     $(".school-entries:last").append(HTMLschoolName);
     HTMLschoolDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
     $(".school-entries:last").append(HTMLschoolDegree);
-    HTMLschoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+    HTMLschoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].place);
     $(".school-entries:last").append(HTMLschoolLocation);
     HTMLschoolMajor = HTMLschoolMajor.replace("%data%", education.schools[school].major);
     $(".school-entries:last").append(HTMLschoolMajor);
@@ -209,7 +163,7 @@ education.display = function()
   
     HTMLonlineDates = HTMLonlineDates.replace("%data%", education.onlineCourses[course].dates);
     $(".class-date:last").append(HTMLonlineDates);
-    HTMLonlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].title);
+    HTMLonlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].courseTitle);
     $(".class-entries:last").append(HTMLonlineTitle);
     HTMLonlineSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[course].school);
     $(".class-entries:last").append(HTMLonlineSchool);
@@ -231,18 +185,15 @@ projects.display = function()
 
     var formattedDate = HTMLprojectDates.replace("%data%", projects.sampleProjects[project].dates);
     $(".date:last").append(formattedDate);
-    var formattedTitle = HTMLprojectTitle.replace("%data%", projects.sampleProjects[project].title);
+    var formattedTitle = HTMLprojectTitle.replace("%data%", projects.sampleProjects[project].project_title);
     $(".project-entries:last").append(formattedTitle);
-    var formattedDesc = HTMLprojectDescription.replace("%data%", projects.sampleProjects[project].description);
+    var formattedDesc = HTMLprojectDescription.replace("%data%", projects.sampleProjects[project].project_desc);
     $(".project-entries:last").append(formattedDesc);
-    for (image in projects.sampleProjects[project].images)
+    /*for (image in projects.sampleProjects[project].images)
     {
     var formattedImage = HTMLprojectImage.replace("%data%", projects.sampleProjects[project].images[image]);
     $(".project-entries:last").append(formattedImage);
-    }
-    // $(".project-entry:last").append(Div);
-    // var w =   formattedDate +formattedTitle + formattedDesc + formattedImage;
-    // $(".project-entry:last").append(w);
+    }*/
   }
 }
 // calls project display method
