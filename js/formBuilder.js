@@ -47,7 +47,6 @@ $("#showSchool").click(function()
 s = schoolCounter.value();
 var schoolInput  = '<div class="school"><label>Name</label><input type="text" name="sch_name" id="sch_name'+s+'"><label>Major</label><input type="text" name="sch_major" id="sch_major'+s+'"><label>Degree</label><input type="text" name="sch_degree" id="sch_degree'+s+'"><label>From</label><input type="text" name="schStartDate" id="schStartDate'+s+'"><label>To</label><input type="text" name="schEndDate" id="schEndDate'+s+'"><label>Place</label><input type="text" name="sch_place" id="sch_place'+s+'"></work>';
 $(".hideMe-2").append(schoolInput);
-alert(schoolInput);
 schoolCounter.increment();
 });//create schools section
 
@@ -56,7 +55,6 @@ $("#showOnlineCourse").click(function()
 c = courseCounter.value();
 var onlineCourseInput = '<div class="onlineCourse"><label> Course Title</label><input type="text" name="course_title" id="course_title'+c+'"><label>School</label><input type="text" name="course_sch" id="course_sch'+c+'"><label>Date</label><input type="text" name="course_date" id="course_date'+c+'"><label>URL</label><input type="text" name="course_url" id="course_url'+c+'"></div>';
 $(".hideMe-3").append(onlineCourseInput);
-alert(onlineCourseInput);
 courseCounter.increment();
 });//create course section
 
@@ -65,7 +63,6 @@ $("#showProject").click(function()
 p = projectCounter.value();
 var projectInput = '<div class="project"><label>Title</label><input type="text" name="project_title" id="project_title'+p+'"><label>Date</label><input type="text" name="project_date" id="project_date'+p+'"><label>Media</label><button>Add New</button><!-- when img is created it should be given class dynamically --><label>Details</label><textarea name="project_details" id="project_details'+p+'"></textarea></div>';
 $(".hideMe-4").append(projectInput);
-alert(projectInput);
 projectCounter.increment();
 });//create course section
 
